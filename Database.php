@@ -2,7 +2,7 @@
 
 class Database
 {
-    public $conn;
+    public PDO $conn;
 
     /**
      *Constructor for Database class
@@ -16,12 +16,33 @@ class Database
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']}";
         $options = [
           PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+          PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ];
 
         try {
             $this->conn = new PDO($dsn, $config['username'], $config['password'], $options);
         } catch (PDOException $e) {
-            throw new Exception("Database connection failed: {$e->getMessage()}");
+            throw new \RuntimeException("Database connection failed: {$e->getMessage()}");
         }
     }
+
+    /**
+     *Query the database
+     *
+     * @param string $query
+     * @return PDOStatement
+     * @throws PDOException
+     * @throws Exception
+     */
+
+    public function query(string $query): PDOStatement
+    {
+        try {
+            return $this->conn->query($query);
+        } catch (PDOException $e) {
+            throw new \RuntimeException ("Query failed to execute: {$e->getMessage()}");
+        }
+    }
+
+
 }
