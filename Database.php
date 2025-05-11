@@ -35,14 +35,20 @@ class Database
      * @throws Exception
      */
 
-    public function query(string $query): PDOStatement
+    public function query(string $query, array $params = []): PDOStatement
     {
         try {
-            return $this->conn->query($query);
+            $sth = $this->conn->prepare($query);
+            //Bind named parameters
+            foreach ($params as $param => $value) {
+                $sth->bindValue(':' . $param, $value);
+            }
+            $sth->execute();
+            return $sth;
+
         } catch (PDOException $e) {
-            throw new \RuntimeException ("Query failed to execute: {$e->getMessage()}");
+            throw new \RuntimeException("Query failed to execute: " .
+              $e->getMessage());
         }
     }
-
-
 }
