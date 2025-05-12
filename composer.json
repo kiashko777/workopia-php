@@ -1,0 +1,28 @@
+{
+  "name": "kiashko777/workopia-php",
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+      "Framework\\": "Framework/"
+    }
+  },
+  "description": "vanilla php project - Job Listing application",
+  "keywords": [
+    "php",
+    "job",
+    "listing"
+  ],
+  "homepage": "https://github.com/kiashko777/workopia-php",
+  "type": "project",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Roman Kiashko",
+      "email": "kiashko777@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*"
+  }
+}

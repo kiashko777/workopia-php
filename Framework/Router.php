@@ -1,8 +1,12 @@
 <?php
 
+namespace Framework;
+
+use JetBrains\PhpStorm\NoReturn;
+
 class Router
 {
-    protected $routes = [];
+    protected array $routes = [];
 
     /**
      *Add a route
@@ -13,7 +17,7 @@ class Router
      * @return void
      */
 
-    public function registerRoute($method, $uri, $controller)
+    public function registerRoute(string $method, string $uri, string $controller): void
     {
         $this->routes[] = [
           'method' => $method,
@@ -29,7 +33,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function get(string $uri, string $controller)
+    public function get(string $uri, string $controller): void
     {
         $this->registerRoute('GET', $uri, $controller);
     }
@@ -41,7 +45,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function post(string $uri, string $controller)
+    public function post(string $uri, string $controller): void
     {
         $this->registerRoute('POST', $uri, $controller);
     }
@@ -53,7 +57,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function put(string $uri, string $controller)
+    public function put(string $uri, string $controller): void
     {
         $this->registerRoute('PUT', $uri, $controller);
     }
@@ -65,7 +69,7 @@ class Router
      * @param string $controller
      * @return void
      */
-    public function delete(string $uri, string $controller)
+    public function delete(string $uri, string $controller): void
     {
         $this->registerRoute('DELETE', $uri, $controller);
     }
@@ -77,7 +81,7 @@ class Router
      * @return void
      */
 
-    public function error(int $httpCode = 404)
+    #[NoReturn] public function error(int $httpCode = 404): void
     {
         http_response_code($httpCode);
         loadView("error/{$httpCode}");
@@ -91,11 +95,11 @@ class Router
      * @return void
      */
 
-    public function route(string $uri, string $method)
+    public function route(string $uri, string $method): void
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $method) {
-                require basePath($route['controller']);
+                require basePath('App/' . $route['controller']);
                 return;
             }
         }

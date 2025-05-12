@@ -1,10 +1,12 @@
 <?php
 
+use Framework\Database;
+
 $config = require basePath('config/db.php');
 try {
     $db = new Database($config);
 } catch (Exception $e) {
-    throw new \RuntimeException ("DB not instatiated: {$e->getMessage()}");
+    throw new \RuntimeException ("DB not instantiated: {$e->getMessage()}");
 }
 try {
     $listings = $db->query('SELECT * FROM listings LIMIT 6')->fetchAll();
@@ -13,6 +15,6 @@ try {
 }
 
 
-loadView('home', [
+loadView('listings/index', [
   'listings' => $listings
 ]);
