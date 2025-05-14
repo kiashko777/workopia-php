@@ -2,7 +2,7 @@
 
 namespace Framework;
 
-use JetBrains\PhpStorm\NoReturn;
+use App\controllers\ErrorController;
 
 class Router
 {
@@ -78,20 +78,6 @@ class Router
     }
 
     /**
-     *Load error 404 page
-     * @param int $httpCode
-     *
-     * @return void
-     */
-
-    #[NoReturn] public function error(int $httpCode = 404): void
-    {
-        http_response_code($httpCode);
-        loadView("error/{$httpCode}");
-        exit;
-    }
-
-    /**
      *Route a request
      * @param string $uri
      * @param string $method
@@ -113,7 +99,7 @@ class Router
                 return;
             }
         }
-        $this->error();
+        ErrorController::notFound();
 
     }
 
