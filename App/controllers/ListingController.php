@@ -27,7 +27,7 @@ class ListingController
             throw new \RuntimeException ("Query failed to execute: {$e->getMessage()}");
         }
 
-        loadView('home', [
+        loadView('listings/index', [
           'listings' => $listings
         ]);
     }
@@ -37,9 +37,9 @@ class ListingController
         loadView('listings/create');
     }
 
-    public function show(): void
+    public function show($params): void
     {
-        $id = $_GET['id'] ?? '';
+        $id = $params['id'] ?? '';
 
         $params = [
           'id' => $id
@@ -47,6 +47,10 @@ class ListingController
 
         try {
             $listing = $this->db->query("SELECT * FROM listings WHERE id=:id", $params)->fetch();
+            if (!$listing) {
+                ErrorController::notFound('Listing not found!');
+                return;
+            }
         } catch (Exception $e) {
             throw new \RuntimeException ("Query failed to execute: {$e->getMessage()}");
         }

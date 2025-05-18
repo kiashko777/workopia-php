@@ -8,6 +8,10 @@
         <p class="text-center text-2xl mb-4">
             <?= $message ?>
         </p>
+        <a class="block p-4 text-blue-700" href="/listings">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            Back To Listings
+        </a>
     </div>
 </section>
 
