@@ -59,4 +59,20 @@ class ListingController
           'listing' => $listing
         ]);
     }
+
+
+    /**
+     * Store data in database
+     * @return void
+     */
+
+    public
+    function store(): void
+    {
+        $allowedFields = ['title', 'description', 'salary', 'address', 'city', 'state', 'requirements', 'benefits', 'email', 'phone', 'company', 'tags'];
+
+        $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+        $newListingData['user_id'] = 1;
+        $newListingData = array_map('sanitize', $newListingData);
+    }
 }
