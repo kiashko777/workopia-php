@@ -12,13 +12,14 @@ class Validation
      * @return bool
      */
 
-    public static function string(string $value, int $min = 1, int $max = INF): bool
+    public static function string($value, $min = 1, $max = INF): bool
     {
         if (is_string($value)) {
             $value = trim($value);
             $length = strlen($value);
             return $length >= $min && $length <= $max;
         }
+
         return false;
     }
 

@@ -16,6 +16,11 @@
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">
                 Job Info
             </h2>
+            <?php if (isset($errors)): ?>
+                <?php foreach ($errors as $error): ?>
+                    <div class="message bg-red-100 p-3 my-3"><?= $error ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
             <div class="mb-4">
                 <label>
                     <input
@@ -23,6 +28,7 @@
                       name="title"
                       placeholder="Job Title"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['title'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -32,7 +38,7 @@
   name="description"
   placeholder="Job Description"
   class="w-full px-4 py-2 border rounded focus:outline-none"
-></textarea>
+><?= $listing['description'] ?? '' ?></textarea>
                 </label>
             </div>
             <div class="mb-4">
@@ -42,6 +48,7 @@
                       name="salary"
                       placeholder="Annual Salary"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['salary'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -52,6 +59,7 @@
                       name="requirements"
                       placeholder="Requirements"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['requirements'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -62,6 +70,7 @@
                       name="benefits"
                       placeholder="Benefits"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['benefits'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -75,6 +84,7 @@
                       name="company"
                       placeholder="Company Name"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['company'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -85,6 +95,7 @@
                       name="address"
                       placeholder="Address"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['address'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -95,6 +106,7 @@
                       name="city"
                       placeholder="City"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['city'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -105,6 +117,7 @@
                       name="state"
                       placeholder="State"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['state'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -115,6 +128,7 @@
                       name="phone"
                       placeholder="Phone"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['phone'] ?? '' ?>"
                     />
                 </label>
             </div>
@@ -125,6 +139,7 @@
                       name="email"
                       placeholder="Email Address For Applications"
                       class="w-full px-4 py-2 border rounded focus:outline-none"
+                      value="<?= $listing['email'] ?? '' ?>"
                     />
                 </label>
             </div>
