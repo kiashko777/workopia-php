@@ -7,11 +7,11 @@ use Exception;
 class ErrorController
 
     /**
-     *404 didn't found error handler
+     *404 didn't find error handler
      * @return void
      */
 {
-    public static function notFound(string $message = 'Resource not found!'): void
+    public static function notFound($message = 'Resource not found!'): void
     {
         http_response_code(404);
 
