@@ -125,4 +125,17 @@ class UserController
         redirect('/');
     }
 
+    /**
+     *Logout user and destroy session
+     * @return void
+     */
+
+    public function logout(): void
+    {
+        Session::clearAll();
+
+        $params = session_get_cookie_params();
+        setcookie('PHPSESSID', '', time() - 86400, $params['path'], $params['domain'], $params['secure']);
+        redirect('/');
+    }
 }
