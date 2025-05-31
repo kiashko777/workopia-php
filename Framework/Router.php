@@ -3,6 +3,7 @@
 namespace Framework;
 
 use App\controllers\ErrorController;
+use Framework\middleware\Authorize;
 
 class Router
 {
@@ -14,10 +15,11 @@ class Router
      * @param string $method
      * @param string $uri
      * @param string $action
+     * @param array $middleware
      * @return void
      */
 
-    public function registerRoute(string $method, string $uri, string $action): void
+    public function registerRoute(string $method, string $uri, string $action, $middleware = []): void
     {
         [$controller, $controllerMethod] = explode('@', $action);
 
@@ -26,6 +28,7 @@ class Router
           'uri' => $uri,
           'controller' => $controller,
           'controllerMethod' => $controllerMethod,
+          'middleware' => $middleware
         ];
     }
 
@@ -34,11 +37,12 @@ class Router
      *
      * @param string $uri
      * @param string $controller
+     * @param array $middleware
      * @return void
      */
-    public function get(string $uri, string $controller): void
+    public function get(string $uri, string $controller, $middleware = []): void
     {
-        $this->registerRoute('GET', $uri, $controller);
+        $this->registerRoute('GET', $uri, $controller, $middleware);
     }
 
     /**
@@ -46,11 +50,12 @@ class Router
      *
      * @param string $uri
      * @param string $controller
+     * @param array $middleware
      * @return void
      */
-    public function post(string $uri, string $controller): void
+    public function post(string $uri, string $controller, array $middleware = []): void
     {
-        $this->registerRoute('POST', $uri, $controller);
+        $this->registerRoute('POST', $uri, $controller, $middleware);
     }
 
     /**
@@ -58,11 +63,12 @@ class Router
      *
      * @param string $uri
      * @param string $controller
+     * @param array $middleware
      * @return void
      */
-    public function put(string $uri, string $controller): void
+    public function put(string $uri, string $controller, array $middleware = []): void
     {
-        $this->registerRoute('PUT', $uri, $controller);
+        $this->registerRoute('PUT', $uri, $controller, $middleware);
     }
 
     /**
@@ -70,11 +76,13 @@ class Router
      *
      * @param string $uri
      * @param string $controller
+     * @param array $middleware
      * @return void
      */
-    public function delete(string $uri, string $controller): void
+    public
+    function delete(string $uri, string $controller, array $middleware = []): void
     {
-        $this->registerRoute('DELETE', $uri, $controller);
+        $this->registerRoute('DELETE', $uri, $controller, $middleware);
     }
 
     /**
@@ -122,6 +130,9 @@ class Router
                     }
                 }
                 if ($match) {
+                    foreach ($route['middleware'] as $middleware) {
+                        (new Authorize())->handle($middleware);
+                    }
                     //Extract controller and controller method
                     $controller = 'App\\controllers\\' . $route['controller'];
                     $controllerMethod = $route['controllerMethod'];
