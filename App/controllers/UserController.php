@@ -138,4 +138,69 @@ class UserController
         setcookie('PHPSESSID', '', time() - 86400, $params['path'], $params['domain'], $params['secure']);
         redirect('/');
     }
+
+    /**
+     *Authenticate user
+     * @return void
+     */
+
+    public function authenticate(): void
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $errors = [];
+
+        //Validate email
+        if (!Validation::email($email)) {
+            $errors['email'] = 'Please enter a valid email address!';
+        }
+
+        //Validate password
+        if (!Validation::string($password, 6, 50)) {
+            $errors['password'] = 'Password must be between at least 6 characters!';
+        }
+
+        //Check for errors
+        if (!empty($errors)) {
+            loadView('users/login', [
+              'errors' => $errors
+            ]);
+            exit;
+        }
+
+        //Check for email
+        $params = [
+          'email' => $email
+        ];
+        $user = $this->db->query('SELECT * FROM users WHERE email = :email', $params)->fetch();
+        if (!$user) {
+            $errors['email'] = 'Email does not exist!';
+            loadView('users/login', [
+              'errors' => $errors
+            ]);
+            exit;
+        }
+
+        //Check for password
+        if (!password_verify($password, $user->password)) {
+            $errors['password'] = 'Password is incorrect!';
+            loadView('users/login', [
+              'errors' => $errors
+            ]);
+            exit;
+        }
+
+        //Set the user session
+        Session::set('user', [
+          'id' => $user->id,
+          'name' => $user->name,
+          'email' => $user->email,
+          'city' => $user->city,
+          'state' => $user->state,
+        ]);
+        redirect('/');
+
+
+    }
 }
