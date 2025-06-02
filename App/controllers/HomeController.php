@@ -22,7 +22,7 @@ class HomeController
     public function index(): void
     {
         try {
-            $listings = $this->db->query('SELECT * FROM listings LIMIT 6')->fetchAll();
+            $listings = $this->db->query('SELECT * FROM listings ORDER BY created_at DESC LIMIT 6')->fetchAll();
         } catch (Exception $e) {
             throw new \RuntimeException ("Query failed to execute: {$e->getMessage()}");
         }

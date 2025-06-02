@@ -4,7 +4,9 @@ namespace App\controllers;
 
 use Exception;
 use Framework\Database;
+use Framework\Session;
 use Framework\Validation;
+use Framework\Authorization;
 
 class ListingController
 {
@@ -23,7 +25,7 @@ class ListingController
     public function index(): void
     {
         try {
-            $listings = $this->db->query('SELECT * FROM listings')->fetchAll();
+            $listings = $this->db->query('SELECT * FROM listings ORDER BY created_at DESC')->fetchAll();
         } catch (Exception $e) {
             throw new \RuntimeException ("Query failed to execute: {$e->getMessage()}");
         }
@@ -83,7 +85,7 @@ class ListingController
         $allowedFields = ['title', 'description', 'salary', 'address', 'city', 'state', 'requirements', 'benefits', 'email', 'phone', 'company', 'tags'];
 
         $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
-        $newListingData['user_id'] = 1;
+        $newListingData['user_id'] = Session::get('user')['id'];
         $newListingData = array_map('sanitize', $newListingData);
 
         $requiredFields = ['title', 'description', 'city', 'state', 'email', 'salary'];
@@ -138,10 +140,19 @@ class ListingController
         ];
 
         $listing = $this->db->query("SELECT * FROM listings WHERE id=:id", $params)->fetch();
+
+        //Check if listing exists
         if (!$listing) {
             ErrorController::notFound('Listing not found!');
             return;
         }
+
+        //Authorization check
+        if (!Authorization::isOwner($listing->user_id)) {
+            $_SESSION['error_message'] = 'You are not authorized to delete this listing!';
+            redirect('/listings/' . $listing->id);
+        }
+
         $this->db->query("DELETE FROM listings WHERE id=:id", $params);
 
         //Set flash message
