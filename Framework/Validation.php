@@ -1,5 +1,7 @@
 <?php
 
+// This is the validation class.
+
 namespace Framework;
 
 class Validation

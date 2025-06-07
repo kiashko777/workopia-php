@@ -1,3 +1,5 @@
+//This is the index view for the listings page.
+
 <?php loadPartial('head'); ?>
 
 <?php loadPartial('navbar'); ?>

@@ -1,5 +1,7 @@
 <?php
 
+// This is the file to set the helpers.
+
 /**
  *Get the base path
  *

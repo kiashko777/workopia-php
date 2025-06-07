@@ -1,5 +1,7 @@
 <?php
 
+// This is the router class.
+
 namespace Framework;
 
 use App\controllers\ErrorController;

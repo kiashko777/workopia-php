@@ -1,5 +1,7 @@
 <?php
 
+// This is the application routes file.
+
 global $router;
 
 $router->get('/', 'HomeController@index');

@@ -1,5 +1,7 @@
 <?php
 
+// This is the controller for the all operations with listings (CRUD)
+
 namespace App\Controllers;
 
 use Framework\Database;

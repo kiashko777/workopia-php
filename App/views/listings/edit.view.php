@@ -1,3 +1,5 @@
+//This is the the view to show the form to edit the listings.
+
 <?php loadPartial('head'); ?>
 
 <?php loadPartial('navbar'); ?>
@@ -152,7 +154,7 @@
                 Save
             </button>
             <a
-              href="/listings/<?= $listing->id  ?>"
+              href="/listings/<?= $listing->id ?>"
               class="block text-center w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded focus:outline-none"
             >
                 Cancel

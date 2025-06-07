@@ -1,3 +1,5 @@
+//This is the view to show a single listing.
+
 <?php loadPartial('head'); ?>
 
 <?php loadPartial('navbar'); ?>

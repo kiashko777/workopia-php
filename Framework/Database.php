@@ -1,5 +1,7 @@
 <?php
 
+// This is the database class.
+
 namespace Framework;
 
 use Exception;

@@ -1,5 +1,7 @@
 <?php
 
+// This is the middleware for authorization checks.
+
 namespace Framework\Middleware;
 
 use Framework\Session;

@@ -1,5 +1,7 @@
 <?php
 
+// This is the controller for the user operations (login, register, logout, authenticate)
+
 namespace App\controllers;
 
 use Exception;

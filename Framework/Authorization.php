@@ -1,5 +1,7 @@
 <?php
 
+// This is the authorization class.
+
 namespace Framework;
 
 use Framework\Session;

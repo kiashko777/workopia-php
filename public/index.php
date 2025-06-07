@@ -1,5 +1,8 @@
 <?php
 
+//Thi is the entry point of the application -  initialize the autoloader, session and helpers,
+// then load the router, routes and the current URI and method.
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Framework\Router;

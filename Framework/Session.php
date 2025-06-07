@@ -1,5 +1,7 @@
 <?php
 
+// This is the session class.
+
 namespace Framework;
 
 class Session

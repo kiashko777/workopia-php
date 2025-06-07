@@ -1,3 +1,5 @@
+//This is the view to show the form to create listings
+
 <?php loadPartial('head'); ?>
 
 <?php loadPartial('navbar'); ?>

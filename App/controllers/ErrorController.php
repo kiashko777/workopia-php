@@ -1,5 +1,7 @@
 <?php
 
+// This is the controller for the error page, 404 and 403 and authorization errors
+
 namespace App\controllers;
 
 use Exception;
